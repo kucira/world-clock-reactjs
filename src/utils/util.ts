@@ -18,6 +18,11 @@ export const getCurrentTime = (dateTime: string) => {
   return '';
 };
 
+export const getAheadBehind = (dateTime : string) => {
+  const indexOffsetPlus = dateTime?.indexOf('+');
+  return indexOffsetPlus > -1 ? 'ahead' : 'behind';
+}
+
 export const getDiffTimeInLabel = (currentTimeOffset: string, targetTimeOffset: string) => {
   const aheadOrBehind = targetTimeOffset.substring(0, 1);
   const label = aheadOrBehind === '+' ? 'ahead' : 'behind';

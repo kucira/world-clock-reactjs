@@ -1,7 +1,9 @@
 import useGetTimezone from '../hooks/useGetTimezone';
-import { getCurrentTime, getDiffTime, getTimeFormat } from '../utils/util';
+import { getAheadBehind, getCurrentTime, getDiffTime, getTimeFormat } from '../utils/util';
 import Button from './Button';
 import { useEffect, useRef, useState } from 'react';
+
+let count 
 
 type Props = {
   currentCity?: string;
@@ -27,8 +29,15 @@ export default function Clock({
 
   const [localTime, setLocalTime] = useState(new Date(getCurrentTime(timezone.datetime)));
 
+
+  const aheadBehind = getAheadBehind(timezone.datetime)
   const diffHour = getDiffTime(
     new Date(getCurrentTime(timezone.datetime)),
+    new Date(getCurrentTime(currentTime.datetime)),
+  );
+  
+  const diffHourCurrentTime = getDiffTime(
+    new Date(),
     new Date(getCurrentTime(currentTime.datetime)),
   );
 
@@ -36,11 +45,11 @@ export default function Clock({
 
   useEffect(() => {
     interval.current = setInterval(() => {
-      const time = new Date(getCurrentTime(currentTime.datetime));
+      const time = new Date();
       time.setMinutes(new Date().getMinutes());
       time.setMilliseconds(new Date().getMilliseconds());
       const hour = time.getHours() === 0 ? 24 : time.getHours(); 
-      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : hour - Math.abs(diffHour.diff));
+      time.setHours(aheadBehind.includes('ahead') ? time.getHours() + diffHour.diff - diffHourCurrentTime.diff : hour - diffHourCurrentTime.diff - Math.abs(diffHour.diff));
       setLocalTime(time);
     }, 1000);
 
