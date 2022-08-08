@@ -21,6 +21,8 @@ yarn install
 ```sh
 yarn run start
 ```
+![Screenshot 2022-08-08 at 21-58-56 React App](https://user-images.githubusercontent.com/8500294/183449828-0d6b8dd4-fd88-4737-89f8-25ab6dd3dd93.png)
+![Screenshot 2022-08-08 at 21-58-51 React App](https://user-images.githubusercontent.com/8500294/183449843-a2f4fb62-241b-4235-b334-b613128170dd.png)
 
 ## Run tests
 
