@@ -1,0 +1,38 @@
+{
+  "root": true,
+  "rules": {
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__mocks__/**/*",
+        "**/__tests__/**/*",
+        "**/*.test.jsx",
+        "scripts/**/*",
+        "src/Utilities/test-utils/**/*"
+      ],
+      "rules": {
+        "import/named": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-console": "off"
+      }
+    },
+    {
+      "files": [
+        "**/__mocks__/**/*",
+        "**/__tests__/**/*",
+        "**/*.test.jsx"
+      ],
+      "settings": {
+        "import/resolver": {
+          "alias": {
+            "map": [
+              ["__mocks__", "./__mocks__"],
+              ["~", "./src"]
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
