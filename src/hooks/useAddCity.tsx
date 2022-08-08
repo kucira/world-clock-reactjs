@@ -27,6 +27,7 @@ export default function useAddCity() {
 
       setShortLabel('');
       setShowModal(false);
+      setSelectedCity('');
       return;
     }
 

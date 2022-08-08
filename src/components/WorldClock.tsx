@@ -3,7 +3,7 @@ import Container from './Container';
 import ListClock from './ListClock';
 import MainClock from './MainClock';
 import useGetCurrentTimebyIp from '../hooks/useGetCurrentTimebyIp';
-import { getCurrentTime } from '../utils/util';
+import { getCurrentTime, getDiffTime } from '../utils/util';
 import useAddCity from '../hooks/useAddCity';
 import Button from './Button';
 import Modal from './Modal';
@@ -15,14 +15,19 @@ export default function WorldClock() {
  
   const [localTime , setLocalTime] = useState(new Date(getCurrentTime(currentTimezone.datetime)));
 
+  const diffHour = getDiffTime(
+    new Date(getCurrentTime(currentTimezone.datetime)),
+    new Date()
+  );
+
   const interval: any = useRef(null);
 
   useEffect(() => {
     interval.current = setInterval(() => {
-      const time = new Date(getCurrentTime(currentTimezone.datetime));
+      const time = new Date();
       time.setMinutes(new Date().getMinutes());
       time.setMilliseconds(new Date().getMilliseconds());
-      time.setHours(time.getHours())
+      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : time.getHours() - diffHour.diff);
       setLocalTime(time);
     }, 1000);
 

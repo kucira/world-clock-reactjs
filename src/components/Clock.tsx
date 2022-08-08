@@ -36,11 +36,12 @@ export default function Clock({
 
   useEffect(() => {
     interval.current = setInterval(() => {
-      const time = new Date(getCurrentTime(timezone.datetime));
+      const time = new Date(getCurrentTime(currentTime.datetime));
       time.setMinutes(new Date().getMinutes());
       time.setMilliseconds(new Date().getMilliseconds());
-      time.setHours(time.getHours())
+      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : time.getHours() - diffHour.diff);
       setLocalTime(time);
+
     }, 1000);
 
     return () => {
@@ -52,7 +53,7 @@ export default function Clock({
     <div className="hover:cursor-pointer hover:drop-shadow-2xl  my-4 min-h-[25vh] min-w-[25vh] max-h-[25vh] drop-shadow-lg">
       <div className="bg-white rounded-md h-full w-full flex flex-col justify-center items-center">
         <div className="h-full text-2xl text-center">
-          <p className="capitalize">{cityTimezone?.split('/')[1].replace('_', '')}</p>
+          <p className="capitalize">{cityTimezone?.split('/')[1].replace('_', ' ')}</p>
           <p className="text-lg">{label}</p>
         </div>
 
