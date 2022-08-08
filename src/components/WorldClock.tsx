@@ -16,8 +16,8 @@ export default function WorldClock() {
   const [localTime , setLocalTime] = useState(new Date(getCurrentTime(currentTimezone.datetime)));
 
   const diffHour = getDiffTime(
-    new Date(getCurrentTime(currentTimezone.datetime)),
-    new Date()
+    new Date(),
+    new Date(getCurrentTime(currentTimezone.datetime))
   );
 
   const interval: any = useRef(null);
@@ -27,7 +27,8 @@ export default function WorldClock() {
       const time = new Date();
       time.setMinutes(new Date().getMinutes());
       time.setMilliseconds(new Date().getMilliseconds());
-      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : time.getHours() - diffHour.diff);
+      const hour = time.getHours() === 0 ? 24 : time.getHours();
+      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : hour - diffHour.diff);
       setLocalTime(time);
     }, 1000);
 

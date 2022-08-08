@@ -28,8 +28,8 @@ export default function Clock({
   const [localTime, setLocalTime] = useState(new Date(getCurrentTime(timezone.datetime)));
 
   const diffHour = getDiffTime(
+    new Date(getCurrentTime(timezone.datetime)),
     new Date(getCurrentTime(currentTime.datetime)),
-    new Date(getCurrentTime(timezone.datetime))
   );
 
   const interval: any = useRef(null);
@@ -39,9 +39,9 @@ export default function Clock({
       const time = new Date(getCurrentTime(currentTime.datetime));
       time.setMinutes(new Date().getMinutes());
       time.setMilliseconds(new Date().getMilliseconds());
-      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : time.getHours() - diffHour.diff);
+      const hour = time.getHours() === 0 ? 24 : time.getHours(); 
+      time.setHours(diffHour.label.includes('ahead') ? time.getHours() + diffHour.diff : hour - Math.abs(diffHour.diff));
       setLocalTime(time);
-
     }, 1000);
 
     return () => {

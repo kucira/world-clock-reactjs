@@ -27,7 +27,7 @@ export const getDiffTimeInLabel = (currentTimeOffset: string, targetTimeOffset: 
 };
 
 export const getDiffTime = (currentDate: Date, targetDate: Date) => {
-  let diff = (targetDate.getTime() - currentDate.getTime()) / 1000;
+  let diff = (currentDate.getTime() - targetDate.getTime()) / 1000;
   diff /= 60 * 60;
 
   const aheadOrBehind = Math.round(diff) > 0 ? 'ahead' : 'behind';
