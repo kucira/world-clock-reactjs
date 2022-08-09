@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import BackgroundBlur from './components/BackgroundBlur';
 import WorldClock from './components/WorldClock';
 

@@ -26,8 +26,6 @@ export default function WorldClock() {
   useEffect(() => {
     interval.current = setInterval(() => {
       const time = new Date();
-      time.setMinutes(new Date().getMinutes());
-      time.setMilliseconds(new Date().getMilliseconds());
       const hour = time.getHours() === 0 ? 24 : time.getHours();
       time.setHours(aheadBehind.includes('ahead') ? time.getHours() + Math.abs(diffHour.diff) : hour - diffHour.diff);
       setLocalTime(time);
@@ -51,7 +49,6 @@ export default function WorldClock() {
             currentTime={currentTimezone}
             cities={cities}
             showModal={showModal}
-
           />
           <Button
             styleContainer="pb-12"
